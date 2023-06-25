@@ -1,0 +1,10 @@
+﻿  Source.cpp
+C:\Users\ASUS\source\repos\Project1\Source.cpp(38,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ASUS\source\repos\Project1\Source.cpp(50,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\ASUS\source\repos\Project1\Source.cpp(72,61): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\ASUS\source\repos\Project1\Source.cpp(126,37): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\ASUS\source\repos\Project1\Source.cpp(137,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\ASUS\source\repos\Project1\Source.cpp(137,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\ASUS\source\repos\Project1\Source.cpp(145,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\ASUS\source\repos\Project1\Source.cpp(145,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Project1.vcxproj -> C:\Users\ASUS\source\repos\Project1\x64\Debug\Project1.exe
