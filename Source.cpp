@@ -32,12 +32,14 @@ bool check()
     return 1;
 };
 
+bool gameOver = false;
+
 
 int main()
 {
     srand(time(0));
 
-    RenderWindow window(VideoMode(320, 480), "The Game!");
+    RenderWindow window(VideoMode(320, 480), "Tetris !");
 
     Texture t1, t2, t3;
     t1.loadFromFile("/Users/ASUS/Downloads/tiles.png");
@@ -63,10 +65,15 @@ int main()
             if (e.type == Event::Closed)
                 window.close();
 
-            if (e.type == Event::KeyPressed)
-                if (e.key.code == Keyboard::Up) rotate = true;
-                else if (e.key.code == Keyboard::Left) dx = -1;
-                else if (e.key.code == Keyboard::Right) dx = 1;
+            if (!gameOver) 
+            {
+                if (e.type == Event::KeyPressed) {
+                    if (e.key.code == Keyboard::Up) rotate = true;
+                    else if (e.key.code == Keyboard::Left) dx = -1;
+                    else if (e.key.code == Keyboard::Right) dx = 1;
+                }
+            }
+
         }
 
         if (Keyboard::isKeyPressed(Keyboard::Down)) delay = 0.05;
@@ -105,6 +112,17 @@ int main()
                     a[i].x = figures[n][i] % 2;
                     a[i].y = figures[n][i] / 2;
                 }
+                // Check if the game is over
+                for (int i = 0; i < 4; i++) {
+                    if (b[i].y <= 0) {
+                        gameOver = true;
+                        timer = delay + 1.0f;
+                        dx = 0;
+                        rotate = false;
+                        break;
+                    }
+                }
+
             }
 
             timer = 0;
@@ -125,19 +143,31 @@ int main()
 
         dx = 0; rotate = 0; delay = 0.3;
 
-        /////////draw//////////
+        ///draw 
         window.clear(Color::White);
         window.draw(background);
 
-        for (int i = 0; i < M; i++)
-            for (int j = 0; j < N; j++)
-            {
-                if (field[i][j] == 0) continue;
-                s.setTextureRect(IntRect(field[i][j] * 18, 0, 18, 18));
-                s.setPosition(j * 18, i * 18);
-                s.move(28, 31); //offset
-                window.draw(s);
-            }
+        // Render game elements if the game is not over
+        if (!gameOver) {
+            for (int i = 0; i < M; i++)
+                for (int j = 0; j < N; j++)
+                {
+                    if (field[i][j] == 0) continue;
+                    s.setTextureRect(IntRect(field[i][j] * 18, 0, 18, 18));
+                    s.setPosition(j * 18, i * 18);
+                    s.move(28, 31); //offset
+                    window.draw(s);
+                }
+        }
+        else {
+            // Render "Game Over" message or screen
+            sf::Font font;
+            font.loadFromFile("game_over.ttf");
+            sf::Text gameOverText("Game Over", font, 60);
+            gameOverText.setFillColor(sf::Color::Red);
+            gameOverText.setPosition(100, 200); // Text Positioning
+            window.draw(gameOverText);
+        }
 
         for (int i = 0; i < 4; i++)
         {
